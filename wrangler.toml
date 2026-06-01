@@ -1,3 +1,0 @@
-name = "agendamentows"
-main = "src/routes/index.tsx"
-compatibility_date = "2026-05-10"
