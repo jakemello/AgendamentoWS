@@ -78,8 +78,7 @@ type DisponibilidadeAPI = {
   vagasRestantes: number;
 };
 
-const hostDisplay = (h?: Host) =>
-  h ? `${h.name}${h.department ? ` — ${h.department}` : ""}` : "";
+const hostDisplay = (h?: Host) => (h ? `${h.name}${h.department ? ` — ${h.department}` : ""}` : "");
 
 const QUIZ = [
   {
@@ -171,12 +170,7 @@ function Index() {
 
   const step1Valid = useMemo(() => {
     const camposBasicos =
-      name.trim() &&
-      doc.trim() &&
-      company.trim() &&
-      isEmailValid &&
-      host &&
-      visitReason;
+      name.trim() && doc.trim() && company.trim() && isEmailValid && host && visitReason;
     if (visitType === "individual") return camposBasicos;
     if (visitType === "grupo") {
       return camposBasicos && Number(groupSize) >= 2 && fileData !== null;
@@ -200,9 +194,7 @@ function Index() {
         const diaCalendario = d.getDate();
         const mesCalendario = d.getMonth() + 1;
         const anoCalendario = d.getFullYear();
-        const hostSelecionado = String(selectedHostObj.name)
-          .trim()
-          .toLowerCase();
+        const hostSelecionado = String(selectedHostObj.name).trim().toLowerCase();
 
         const temVaga = disponibilidades.some((disp) => {
           if (!disp.data) return false;
@@ -276,9 +268,7 @@ function Index() {
     const diaCalendario = date.getDate();
     const mesCalendario = date.getMonth() + 1;
     const anoCalendario = date.getFullYear();
-    const hostSelecionado = String(selectedHostObj.name)
-      .trim()
-      .toLowerCase();
+    const hostSelecionado = String(selectedHostObj.name).trim().toLowerCase();
 
     const correspondente = disponibilidades.find((disp) => {
       if (!disp.data) return false;
@@ -294,9 +284,7 @@ function Index() {
         mesCalendario === mesPlanilha &&
         anoCalendario === anoPlanilha;
       const hostPlanilha = disp.host ? String(disp.host).trim().toLowerCase() : "";
-      const hostBate =
-        hostPlanilha === hostSelecionado ||
-        hostPlanilha.includes(hostSelecionado);
+      const hostBate = hostPlanilha === hostSelecionado || hostPlanilha.includes(hostSelecionado);
 
       return dataBate && hostBate;
     });
@@ -324,9 +312,7 @@ function Index() {
       arquivoBase64: fileData ? fileData.base64 : "",
       nomeArquivo: fileData ? fileData.name : "",
       tipoArquivo: fileData ? fileData.type : "",
-      linkAnexo: fileData
-        ? `Arquivo Anexado: ${fileData.name}`
-        : "Não aplicável (Individual)",
+      linkAnexo: fileData ? `Arquivo Anexado: ${fileData.name}` : "Não aplicável (Individual)",
     };
 
     fetch(API_URL, {
@@ -397,9 +383,8 @@ function Index() {
               Agendamento de Visitas Operacionais — Wilson Sons
             </h1>
             <p className="mt-4 max-w-2xl text-sm text-white/85 sm:text-base">
-              Solicite, agende e prepare sua visita aos nossos terminais e
-              estaleiros com eficiência, conformidade e total aderência aos
-              protocolos de segurança da Wilson Sons.
+              Solicite, agende e prepare sua visita aos nossos terminais e estaleiros com
+              eficiência, conformidade e total aderência aos protocolos de segurança da Wilson Sons.
             </p>
           </div>
         </section>
@@ -414,9 +399,7 @@ function Index() {
                     {step === 2 && "Passo 2 — Agendamento Inteligente"}
                     {step === 3 && "Passo 3 — Imersão e Quiz de Segurança"}
                   </h2>
-                  <span className="text-xs font-medium text-muted-foreground">
-                    {step}/3
-                  </span>
+                  <span className="text-xs font-medium text-muted-foreground">{step}/3</span>
                 </div>
                 <Progress
                   value={progress}
@@ -424,39 +407,35 @@ function Index() {
                   aria-label="Progresso do agendamento"
                 />
                 <ol className="mt-4 flex items-center gap-2 text-xs sm:text-sm">
-                  {["Identificação", "Agendamento", "Segurança"].map(
-                    (label, i) => {
-                      const n = i + 1;
-                      const active = n === step;
-                      const done = n < step;
-                      return (
-                        <li key={label} className="flex items-center gap-2">
-                          <span
-                            className={cn(
-                              "flex h-6 w-6 items-center justify-center rounded-full border text-[11px] font-semibold",
-                              done && "border-accent bg-accent text-accent-foreground",
-                              active && "border-primary bg-primary text-primary-foreground",
-                              !active && !done && "border-border bg-white text-muted-foreground",
-                            )}
-                            aria-current={active ? "step" : undefined}
-                          >
-                            {done ? <CheckCircle2 className="h-3.5 w-3.5" /> : n}
-                          </span>
-                          <span
-                            className={cn(
-                              "hidden sm:inline",
-                              active ? "font-medium text-primary" : "text-muted-foreground",
-                            )}
-                          >
-                            {label}
-                          </span>
-                          {n < 3 && (
-                            <ChevronRight className="h-3.5 w-3.5 text-border" />
+                  {["Identificação", "Agendamento", "Segurança"].map((label, i) => {
+                    const n = i + 1;
+                    const active = n === step;
+                    const done = n < step;
+                    return (
+                      <li key={label} className="flex items-center gap-2">
+                        <span
+                          className={cn(
+                            "flex h-6 w-6 items-center justify-center rounded-full border text-[11px] font-semibold",
+                            done && "border-accent bg-accent text-accent-foreground",
+                            active && "border-primary bg-primary text-primary-foreground",
+                            !active && !done && "border-border bg-white text-muted-foreground",
                           )}
-                        </li>
-                      );
-                    },
-                  )}
+                          aria-current={active ? "step" : undefined}
+                        >
+                          {done ? <CheckCircle2 className="h-3.5 w-3.5" /> : n}
+                        </span>
+                        <span
+                          className={cn(
+                            "hidden sm:inline",
+                            active ? "font-medium text-primary" : "text-muted-foreground",
+                          )}
+                        >
+                          {label}
+                        </span>
+                        {n < 3 && <ChevronRight className="h-3.5 w-3.5 text-border" />}
+                      </li>
+                    );
+                  })}
                 </ol>
               </div>
 
@@ -472,10 +451,7 @@ function Index() {
                       />
                     </Field>
                     <div className="grid gap-4 sm:grid-cols-2">
-                      <Field
-                        label={docType === "cpf" ? "CPF" : "Identidade"}
-                        htmlFor="doc"
-                      >
+                      <Field label={docType === "cpf" ? "CPF" : "Identidade"} htmlFor="doc">
                         <RadioGroup
                           value={docType}
                           onValueChange={(v) => {
@@ -503,11 +479,7 @@ function Index() {
                           value={doc}
                           onChange={(e) => setDoc(formatDoc(e.target.value))}
                           maxLength={14}
-                          placeholder={
-                            docType === "cpf"
-                              ? "000.000.000-00"
-                              : "Ex: 12.345.678-9"
-                          }
+                          placeholder={docType === "cpf" ? "000.000.000-00" : "Ex: 12.345.678-9"}
                           aria-label={docType === "cpf" ? "CPF" : "Identidade"}
                         />
                       </Field>
@@ -528,7 +500,9 @@ function Index() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="nome@exemplo.com"
                         className={cn(
-                          email.trim() !== "" && !isEmailValid && "border-destructive text-destructive focus-visible:ring-destructive"
+                          email.trim() !== "" &&
+                            !isEmailValid &&
+                            "border-destructive text-destructive focus-visible:ring-destructive",
                         )}
                       />
                       {email.trim() !== "" && !isEmailValid && (
@@ -583,11 +557,21 @@ function Index() {
                           <SelectValue placeholder="Selecione o motivo da sua visita" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="Reunião de Negócios / Comercial">Reunião de Negócios / Comercial</SelectItem>
-                          <SelectItem value="Prestação de Serviço / Manutenção">Prestação de Serviço / Manutenção</SelectItem>
-                          <SelectItem value="Auditoria / Inspeção Fiscal">Auditoria / Inspeção Fiscal</SelectItem>
-                          <SelectItem value="Treinamento / Integração">Treinamento / Integração</SelectItem>
-                          <SelectItem value="Visita Educativa / Institucional">Visita Educativa / Institucional</SelectItem>
+                          <SelectItem value="Reunião de Negócios / Comercial">
+                            Reunião de Negócios / Comercial
+                          </SelectItem>
+                          <SelectItem value="Prestação de Serviço / Manutenção">
+                            Prestação de Serviço / Manutenção
+                          </SelectItem>
+                          <SelectItem value="Auditoria / Inspeção Fiscal">
+                            Auditoria / Inspeção Fiscal
+                          </SelectItem>
+                          <SelectItem value="Treinamento / Integração">
+                            Treinamento / Integração
+                          </SelectItem>
+                          <SelectItem value="Visita Educativa / Institucional">
+                            Visita Educativa / Institucional
+                          </SelectItem>
                           <SelectItem value="Outros">Outros</SelectItem>
                         </SelectContent>
                       </Select>
@@ -611,9 +595,7 @@ function Index() {
                             className="border-input hover:border-accent flex h-10 cursor-pointer items-center gap-2 rounded-md border bg-white px-3 text-sm text-muted-foreground transition focus-within:ring-2 focus-within:ring-accent"
                           >
                             <Upload className="h-4 w-4" />
-                            <span className="truncate">
-                              {fileData?.name || "Anexar arquivo"}
-                            </span>
+                            <span className="truncate">{fileData?.name || "Anexar arquivo"}</span>
                             <input
                               id="file"
                               type="file"
@@ -659,7 +641,9 @@ function Index() {
                             {format(date, "PPP", { locale: ptBR })}
                           </div>
                           <div className="mt-6">
-                            <Label className="mb-3 block font-semibold text-primary">Selecione o Turno desejado</Label>
+                            <Label className="mb-3 block font-semibold text-primary">
+                              Selecione o Turno desejado
+                            </Label>
                             <RadioGroup
                               value={turno}
                               onValueChange={(value) => setTurno(value)} // Atualiza o estado ao clicar
@@ -667,11 +651,15 @@ function Index() {
                             >
                               <div className="flex items-center space-x-2 border p-3 rounded-md cursor-pointer hover:bg-slate-50">
                                 <RadioGroupItem value="Manhã" id="r1" />
-                                <Label htmlFor="r1" className="cursor-pointer">Manhã (07h30 – 12h00)</Label>
+                                <Label htmlFor="r1" className="cursor-pointer">
+                                  Manhã (07h30 – 12h00)
+                                </Label>
                               </div>
                               <div className="flex items-center space-x-2 border p-3 rounded-md cursor-pointer hover:bg-slate-50">
                                 <RadioGroupItem value="Tarde" id="r2" />
-                                <Label htmlFor="r2" className="cursor-pointer">Tarde (13h00 – 17h30)</Label>
+                                <Label htmlFor="r2" className="cursor-pointer">
+                                  Tarde (13h00 – 17h30)
+                                </Label>
                               </div>
                             </RadioGroup>
                           </div>
@@ -702,10 +690,7 @@ function Index() {
                         Quiz de Segurança Operacional
                       </h3>
                       {QUIZ.map((q, qi) => (
-                        <fieldset
-                          key={qi}
-                          className="rounded-md border border-border bg-white p-4"
-                        >
+                        <fieldset key={qi} className="rounded-md border border-border bg-white p-4">
                           <legend className="px-1 text-sm font-medium text-primary">
                             {qi + 1}. {q.q}
                           </legend>
@@ -772,9 +757,8 @@ function Index() {
                         >
                           Termos de uso de EPI
                         </a>{" "}
-                        da Wilson Sons — capacete, botas de segurança e colete
-                        refletivo nas áreas operacionais. É proibido o uso de
-                        regatas, shorts e calçados abertos.
+                        da Wilson Sons — capacete, botas de segurança e colete refletivo nas áreas
+                        operacionais. É proibido o uso de regatas, shorts e calçados abertos.
                       </span>
                     </label>
 
@@ -783,13 +767,17 @@ function Index() {
                         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-100 text-green-600">
                           <CheckCircle2 className="h-6 w-6" />
                         </div>
-                        <h2 className="text-xl font-bold tracking-tight text-primary">Agendamento enviado com sucesso!</h2>
+                        <h2 className="text-xl font-bold tracking-tight text-primary">
+                          Agendamento enviado com sucesso!
+                        </h2>
                         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                          Você receberá um e-mail de confirmação com o código de agendamento da visita.
+                          Você receberá um e-mail de confirmação com o código de agendamento da
+                          visita.
                         </p>
                         <div className="mt-4 inline-flex items-center gap-2 rounded-md border border-amber-200 bg-amber-100/50 px-3 py-2 text-left text-xs text-amber-800">
                           <span>
-                            ⚠️ <strong>Aviso:</strong> Verifique também sua pasta de <strong>Spam / Lixo Eletrônico</strong>.
+                            ⚠️ <strong>Aviso:</strong> Verifique também sua pasta de{" "}
+                            <strong>Spam / Lixo Eletrônico</strong>.
                           </span>
                         </div>
                         <Button
@@ -820,9 +808,7 @@ function Index() {
                   <Button
                     type="button"
                     onClick={() => setStep((s) => s + 1)}
-                    disabled={
-                      (step === 1 && !step1Valid) || (step === 2 && !step2Valid)
-                    }
+                    disabled={(step === 1 && !step1Valid) || (step === 2 && !step2Valid)}
                     className="bg-primary text-primary-foreground hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-accent"
                   >
                     Continuar <ChevronRight className="h-4 w-4" />
@@ -878,12 +864,8 @@ function Index() {
       <footer className="bg-[#002147] py-6 text-center text-xs text-white sm:text-sm">
         <div className="mx-auto flex max-w-sm flex-col items-center justify-center gap-2 px-4">
           <Ship className="h-15 w-10 text-accent animate-pulse" aria-hidden="true" />
-          <p className="tracking-wide">
-            Projeto desenvolvido para fins educativos
-          </p>
-          <p className="tracking-wide">
-            Nome da Aluna: Jakeline Melo
-          </p>
+          <p className="tracking-wide">Projeto desenvolvido para fins educativos</p>
+          <p className="tracking-wide">Nome da Aluna: Jakeline Melo</p>
           <p className="text-white/60 text-[11px] sm:text-xs">
             &copy; 2026 Wilson Sons. Todos os direitos reservados.
           </p>
@@ -943,15 +925,7 @@ function VisitTypeOption({
   );
 }
 
-function InfoTile({
-  icon,
-  title,
-  desc,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-}) {
+function InfoTile({ icon, title, desc }: { icon: React.ReactNode; title: string; desc: string }) {
   return (
     <div className="rounded-md border border-border bg-white p-4">
       <div className="flex items-center gap-2 text-primary">
