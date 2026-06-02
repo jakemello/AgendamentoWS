@@ -19,7 +19,7 @@ O sistema é uma solução para o agendamento e gestão de visitas aos terminais
 * **Deploy**: Vercel.
 
 ## 🌐 Acesso ao Projeto
-[👉 Acesse a versão pública do sistema]([LINK_DO_SEU_SITE])
+[👉 Acesse a versão pública do sistema][https://agendamento-ws.lovable.app/]
 
 ## 👤 Desenvolvedora
 Desenvolvido por **Jakeline Melo**.
